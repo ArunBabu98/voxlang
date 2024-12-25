@@ -1,4 +1,4 @@
-# Voxlang - Another new programming language
+# Voxlang - Another Simple Programming Language
 
 Welcome to **VoxLang**, a programming language built as a learning project for compiler development. This repository serves as the official home for VoxLang, documenting its features, syntax, and the progress of its development.
 
