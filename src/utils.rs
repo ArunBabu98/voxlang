@@ -1,19 +1,31 @@
+// To extract digits from an expression
 pub(crate) fn extract_digits(s: &str) -> (&str, &str) {
-    let digits_end = s
-        .char_indices()
-        .find_map(|(idx, c)| if c.is_ascii_digit() { None } else { Some(idx) })
-        .unwrap_or_else(|| s.len());
-    let digits = &s[..digits_end];
-    let remainder = &s[digits_end..];
-    (remainder, digits)
+    take_while(|c| c.is_ascii_digit(), s)
 }
 
+// To extract operator from an expression
 pub(crate) fn extract_op(s: &str) -> (&str, &str) {
     match &s[0..1] {
         "+" | "-" | "*" | "/" => {}
         _ => panic!("Bad Operator"),
     }
     (&s[1..], &s[0..1])
+}
+
+// To extract whitespaces from expression
+pub(crate) fn extract_whitespaces(s: &str) -> (&str, &str) {
+    take_while(|c| c == ' ', s)
+}
+
+// Helper function to extract remainder and extracted value,based on a condition
+pub(crate) fn take_while(accept: impl Fn(char) -> bool, s: &str) -> (&str, &str) {
+    let extracted_end = s
+        .char_indices()
+        .find_map(|(idx, c)| if accept(c) { None } else { Some(idx) })
+        .unwrap_or_else(|| s.len());
+    let extracted = &s[..extracted_end];
+    let remainder = &s[extracted_end..];
+    (remainder, extracted)
 }
 
 #[cfg(test)]
@@ -55,5 +67,9 @@ mod tests {
     #[test]
     fn extract_slash() {
         assert_eq!(extract_op("/4"), ("4", "/"));
+    }
+    #[test]
+    fn extract_spaces() {
+        assert_eq!(extract_whitespaces("  1"), ("1", "  "))
     }
 }

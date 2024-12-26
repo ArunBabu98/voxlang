@@ -16,3 +16,7 @@ The basic expression contains an LHS, an operator and an RHS. Where LHS and RHS 
 To parse the expression, We take the expression as a string, and then take the first digit as LHS and send the remainder of the string to extract the operator. After extracting the operator (length=1), we send the remainder to extract the RHS.
 
 ## Part Two: Whitespace Support
+
+We need to add whitespace support to thn.e parser, so that voxlang will be able to process expressions like, `478 + 329` , which has whitespaces in between them.
+
+We add the function, `take_while` which accepts a functional condition and unwraps the character iterator over the expression string, here the condition is set to extract the index where the whiespaces end.
