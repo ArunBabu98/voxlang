@@ -20,3 +20,17 @@ To parse the expression, We take the expression as a string, and then take the f
 We need to add whitespace support to thn.e parser, so that voxlang will be able to process expressions like, `478 + 329` , which has whitespaces in between them.
 
 We add the function, `take_while` which accepts a functional condition and unwraps the character iterator over the expression string, here the condition is set to extract the index where the whiespaces end.
+
+## Part Three: Defining Variables
+
+Variables are an integral part of a programming language, The syntax in voxlang for defining a variable will be,
+
+`var a = 5`
+
+Rules for the identifiers,
+
+- Identifier should not start with a number.
+
+# Evaluation
+
+For evaluation of the binding expression of the variabl, we will be using a hashmap.
