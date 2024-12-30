@@ -1,3 +1,4 @@
+use crate::env::Env;
 use crate::expr::Expr;
 use crate::utils;
 
@@ -24,6 +25,10 @@ impl VarDef {
                 val,
             },
         )
+    }
+
+    pub(crate) fn eval(&self, env: &mut Env) {
+        env.store_binding(self.name.clone(), self.val.eval());
     }
 }
 

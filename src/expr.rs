@@ -1,4 +1,5 @@
 use crate::utils;
+use crate::val::Val;
 
 #[cfg(test)]
 mod tests {
@@ -58,6 +59,19 @@ mod tests {
             )
         )
     }
+
+    #[test]
+    fn eval_add() {
+        assert_eq!(
+            Expr {
+                lhs: Number(10),
+                rhs: Number(5),
+                op: Op::Add,
+            }
+            .eval(),
+            Val::Number(15),
+        );
+    }
 }
 
 #[derive(Debug, PartialEq)]
@@ -109,5 +123,18 @@ impl Expr {
         let (s, rhs) = Number::new(s);
 
         (s, Self { lhs, rhs, op })
+    }
+
+    pub(crate) fn eval(&self) -> Val {
+        let Number(lhs) = self.lhs;
+        let Number(rhs) = self.rhs;
+
+        let result = match self.op {
+            Op::Add => lhs + rhs,
+            Op::Sub => lhs - rhs,
+            Op::Mul => lhs * rhs,
+            Op::Div => lhs / rhs,
+        };
+        Val::Number(result)
     }
 }
